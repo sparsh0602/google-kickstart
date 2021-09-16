@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl "\n"
+#include<string>
+const int mod =1000000007;
+
+int mul(int a,int b)
+{
+    return (a*b)%mod;
+}
+void solve()
+{
+   
+        int n,k;
+        cin>>n>>k;
+        
+        string s;
+        cin>>s;
+        
+        int power[n+1];
+        power[0]=1;
+        
+        for(int i=1;i<=n;i++)
+        power[i]=mul(power[i-1],k);
+        
+        if(n%2!=0)
+        {
+            int ans=0;
+            for(int i=0;i<n/2+1;i++)
+            {
+                int num=(s[i]-'a');
+                ans=ans+mul(num,power[n/2-i]);
+                ans%=mod;
+            }
+        
+        int i=n/2-1;
+        int j=n/2+1;
+        while(i>=0 && j<n)
+        {
+            if(s[i]<s[j])
+            {
+                ans++;
+                ans%=mod;
+                break;
+            }
+            else if(s[i]>s[j])
+            break;
+             
+             i--;
+             j++;
+        }
+        cout<<ans;
+        }
+        else
+        {
+               int ans=0;
+            for(int i=0;i<n/2;i++)
+            {
+                int num=(s[i]-'a');
+                ans=ans+mul(num,power[n/2-1-i]);
+                ans%=mod;
+            }
+        
+        int i=n/2-1;
+        int j=n/2;
+        while(i>=0 )
+        {
+            if(s[i]<s[j])
+            {
+                ans++;
+                ans%=mod;
+                break;
+            }
+            else if(s[i]>s[j])
+            break;
+             
+             i--;
+             j++;
+        }
+        cout<<ans;
+        }
+    
+}
+int32_t main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    int tt=1;
+    while(t--)
+    {
+        cout<<"Case #"<<tt<<": ";
+        solve();
+        cout<<"\n";
+        tt++;
+    }
+    return 0;
+}
